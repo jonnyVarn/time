@@ -8,7 +8,7 @@ from subprocess import Popen as Popen
 from subprocess import check_output as check_output
 from subprocess import call as run_cmd
 
-NIST = 'gbg1.ntp.se'
+NIST = 'gbg2.ntp.se'
 ntp = ntplib.NTPClient()
 ntpResponse = ntp.request(NIST)
 
@@ -25,15 +25,16 @@ if (ntpResponse):
     print("--------------------------------")
     print(correct_time)
     # newest_time=(ntpResponse)
-    run_cmd = ("date")
-
+    run_cmd(["date"])
+    
     file=open('time.sh', 'w+')
     correct_time="\""+correct_time+"\""
     file.write("date -d " +"@" +str(correct_time))
     file.close()
-    Popen=(["sudo","chmod", "+x", "/home/jonny/time/time.sh"])
-        
+    Popen(["sudo","chmod", "+x", "/home/jonny/time/time.sh"])
+    Popen(["sudo", "/home/jonny/time/time.sh"])
     os.chmod("/home/jonny/time/time.sh", 755)
-    run_cmd=("/home/jonny/time/time.sh")
-    run_cmd = ("date")
+    Popen(["bash", "/home/jonny/time/time.sh"])
+
+    #run_cmd("date")
 
