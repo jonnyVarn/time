@@ -1,4 +1,4 @@
-#!/usr/bin/python3.7
+#!/usr/bin/python3
 import ntplib
 from ntplib import ntp_to_system_time as ntp_to_system_time
 import time
@@ -24,32 +24,32 @@ if (ntpResponse):
     Popen(["/usr/bin/date", "-d", correct_time_str], shell=True)
     annan2=annan.decode()
     print(annan2)
-    #Popen(["date", "-d", correct_time], shell=True)
-    #nisse=check_output(["date", "-d", " @", correct_time,], shell=True)
-    #print("--------------------------------")
-    #print(nisse)
     print("--------------------------------")
-    #print(correct_time)
-    #newest_time=(ntpResponse)
-    #run_cmd(["date"])
     
     file=open('time.sh', 'w+')
+    file.write("#!/usr/bin/bash \n"
+    "### BEGIN INIT INFO + \n"
+    "# Provides:          timecheck program \n"
+    "# Required-Start: \n"
+    "# Required-Stop:     $local_fs \n" 
+    "# Default-Start:     2 3 4 5 \n"
+    "# Default-Stop:      0 1 6 \n"
+    "# Short-Description: time_correct \n"
+    "# Description:       time_correct \n"
+    "### END INIT INFO\t") 
     file.write("date -d "  +correct_time_str)
     file.close()
-    Popen(["sudo","chmod", "+x", "/home/jonny/time/time.sh"])
-    Popen(["sudo","chmod", "u+s", "/home/jonny/time/time.sh"])
-    os.chmod("/home/jonny/time/time.sh", 755)
-    Popen(["bash", "/home/jonny/time/time.sh"], shell=True)
-
+    Popen(["sudo","chmod", "+x", "time.sh"])
+    Popen(["cp", "time.sh", "/etc/init.d/time.sh"])
+    #os.chmod("/etc/init.d/time.sh", 755)
+    Popen(["service", "time.sh", "start"])
+    #Popen(["sudo","chmod", "u+s", "time.sh"])
+    os.chmod("time.sh", 755)
+    #Popen(["bash", "/home/jonny/time/time.sh"], shell=True)
     run_cmd("date")
     print("date should be corrected")
-    choice=input("do you wish to create a service? yes or else nothing")
-    if choice=="yes":
-        init==("input are you using init or system d?")
-        if init==" init":
-            print("cool will do that later")
-
-    
-
-
-
+    #choice=input("do you wish to create a service? yes or else nothing")
+    #if choice=="yes":
+        #init==("input are you using init or system d?")
+        #if init==" init":
+            #print("cool will do that later")
