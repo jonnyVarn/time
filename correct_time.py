@@ -41,7 +41,10 @@ if (ntpResponse):
     file.close()
     Popen(["sudo","chmod", "+x", "time.sh"])
     Popen(["cp", "time.sh", "/etc/init.d/time.sh"])
-    #os.chmod("/etc/init.d/time.sh", 755)
+    #os.chmod(/etc/init.d/time.sh, 755)
+    Popen(["chmod", "+x", "/etc/init.d/time.sh"])
+    #os.chmod(/etc/init.d/time.sh, 755)
+
     Popen(["service", "time.sh", "start"])
     #Popen(["sudo","chmod", "u+s", "time.sh"])
     os.chmod("time.sh", 755)
